@@ -9,14 +9,13 @@
             "email": "me@alexey-yashin.ru"
         }
     ],
-    "require": {
-        "autoload": {
-            "psr-4": {
-                "AlexeyYashin\\Bitrix\\Dto": "src/"
-            },
-            "files": [
-                "src/dto.func.php"
-            ]
-        }
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "AlexeyYashin\\Bitrix\\Dto": "src/"
+        },
+        "files": [
+            "src/dto.func.php"
+        ]
     }
 }
