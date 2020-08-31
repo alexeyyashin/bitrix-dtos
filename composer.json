@@ -1,0 +1,22 @@
+{
+    "name": "alexeyyashin/bitrix-dtos",
+    "description": "Bitrix DTOs for easy code completion",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Yashin",
+            "email": "me@alexey-yashin.ru"
+        }
+    ],
+    "require": {
+        "autoload": {
+            "psr-4": {
+                "AlexeyYashin\\Bitrix\\Dto": "src/"
+            },
+            "files": [
+                "src/dto.func.php"
+            ]
+        },
+    }
+}
