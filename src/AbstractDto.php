@@ -1,5 +1,5 @@
 <?php
-namespace AlexeyyYashin\Bitrix\Dto;
+namespace AlexeyYashin\Bitrix\Dto;
 
 use ArrayIterator;
 use ArrayObject;

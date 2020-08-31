@@ -1,7 +1,7 @@
 <?php
 namespace AlexeyYashin\Bitrix\Dto\Iblock;
 
-use AlexeyyYashin\Bitrix\Dto\AbstractDto;
+use AlexeyYashin\Bitrix\Dto\AbstractDto;
 
 class PropertyDto extends AbstractDto
 {
