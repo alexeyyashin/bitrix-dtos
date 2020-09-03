@@ -2,7 +2,16 @@
 namespace AlexeyYashin\Bitrix\Dto\Iblock;
 
 use AlexeyYashin\Bitrix\Dto\AbstractDto;
+use Bitrix\Iblock\IblockTable;
 
+/**
+ * Class PropertyDto
+ *
+ * @property-read \AlexeyYashin\Bitrix\Dto\Iblock\IblockDto|null $iblock
+ * @property-read \AlexeyYashin\Bitrix\Dto\Iblock\IblockDto|null $link_iblock
+ *
+ * @package AlexeyYashin\Bitrix\Dto\Iblock
+ */
 class PropertyDto extends AbstractDto
 {
     protected static $array_upper = true;
@@ -40,4 +49,28 @@ class PropertyDto extends AbstractDto
     public $value_enum_id;
     public $value_xml_id;
     public $value_sort;
+
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'iblock': {
+
+                $iblock = IblockTable::getById($this->iblock_id)->fetch();
+                if ($iblock) {
+                    return new IblockDto($iblock);
+                }
+                break;
+            }
+            case 'link_iblock': {
+
+                $iblock = IblockTable::getById($this->iblock_id)->fetch();
+                if ($iblock) {
+                    return new IblockDto($iblock);
+                }
+                break;
+            }
+        }
+
+        return null;
+    }
 }
