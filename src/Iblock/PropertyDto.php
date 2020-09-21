@@ -63,7 +63,7 @@ class PropertyDto extends AbstractDto
             }
             case 'link_iblock': {
 
-                $iblock = IblockTable::getById($this->iblock_id)->fetch();
+                $iblock = IblockTable::getById($this->link_iblock_id)->fetch();
                 if ($iblock) {
                     return new IblockDto($iblock);
                 }
