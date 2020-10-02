@@ -19,6 +19,8 @@ abstract class AbstractDto extends ArrayObject
      */
     protected static $filter_nulls = false;
 
+    protected static $keep_case = false;
+
     protected static $tilda = false;
 
     /**
@@ -28,7 +30,10 @@ abstract class AbstractDto extends ArrayObject
      */
     public function __construct($array = [])
     {
-        $array = array_change_key_case($array, CASE_LOWER);
+        if ( ! static::$keep_case) {
+
+            $array = array_change_key_case($array, CASE_LOWER);
+        }
 
         foreach ($array as $key => $value) {
             if (static::$tilda) {
