@@ -55,6 +55,10 @@ class PropertyDto extends AbstractDto
         switch ($name) {
             case 'iblock': {
 
+                if ( ! $this->iblock_id) {
+                    break;
+                }
+
                 $iblock = IblockTable::getById($this->iblock_id)->fetch();
                 if ($iblock) {
                     return new IblockDto($iblock);
@@ -63,7 +67,11 @@ class PropertyDto extends AbstractDto
             }
             case 'link_iblock': {
 
-                $iblock = IblockTable::getById($this->iblock_id)->fetch();
+                if ( ! $this->link_iblock_id) {
+                    break;
+                }
+
+                $iblock = IblockTable::getById($this->link_iblock_id)->fetch();
                 if ($iblock) {
                     return new IblockDto($iblock);
                 }
@@ -71,6 +79,6 @@ class PropertyDto extends AbstractDto
             }
         }
 
-        return null;
+        return parent::__get($name);
     }
 }

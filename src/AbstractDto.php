@@ -6,6 +6,9 @@ use ArrayObject;
 
 /**
  * Class AbstractDto
+ *
+ * @property-read array $toArray
+ *
  * @package Malltech\Dto
  */
 abstract class AbstractDto extends ArrayObject
@@ -19,7 +22,14 @@ abstract class AbstractDto extends ArrayObject
      */
     protected static $filter_nulls = false;
 
+    protected static $keep_case = false;
+
     protected static $tilda = false;
+
+    /**
+     * @var \Bitrix\Main\Entity\DataManager
+     */
+    protected static $orm = null;
 
     /**
      * AbstractDto constructor.
@@ -28,7 +38,10 @@ abstract class AbstractDto extends ArrayObject
      */
     public function __construct($array = [])
     {
-        $array = array_change_key_case($array, CASE_LOWER);
+        if ( ! static::$keep_case) {
+
+            $array = array_change_key_case($array, CASE_LOWER);
+        }
 
         foreach ($array as $key => $value) {
             if (static::$tilda) {
@@ -78,6 +91,8 @@ abstract class AbstractDto extends ArrayObject
     }
 
     /**
+     * @deprecated use read-only magic toArray property
+     * @see $this->asArray
      * @return array
      */
     public function toArray(): array
@@ -115,5 +130,32 @@ abstract class AbstractDto extends ArrayObject
         $this->{mb_strtolower($index)} = $newval;
         parent::offsetSet($index, $newval);
         $this->getArrayCopy();
+    }
+
+    protected static function handleFinder(array $res)
+    {
+        return $res;
+    }
+
+    public static function find($primary): ?AbstractDto
+    {
+        if (static::$orm !== null) {
+            $res = static::$orm::getByPrimary($primary)->fetch();
+
+            if ($res) {
+                return new static(static::handleFinder($res));
+            }
+        }
+
+        return null;
+    }
+
+    public function __get($name)
+    {
+        if ($name === 'toArray') {
+            return $this->toArray();
+        }
+
+        return null;
     }
 }
